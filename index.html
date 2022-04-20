@@ -696,20 +696,22 @@ margin-bottom: 20px;
   <script>
     // Script section to load models into a JS Var
     var defs = {}
-        defs["Cliente"] = {"type":"object","properties":{"id":{"type":"integer","format":"int64"},"pessoa":{"$ref":"#/definitions/Pessoa"},"enderecos":{"type":"array","items":{"$ref":"#/definitions/Enderecos"}},"telefones":{"type":"array","items":{"$ref":"#/definitions/Telefones"}},"emails":{"type":"array","items":{"$ref":"#/definitions/Emails"}},"dataCriacao":{"type":"string","format":"date-time"},"dataExclusao":{"type":"string","format":"date-time"}},"description":"Cliente é a nossa base. É necessário ter um cliente para podermos criar os dados de uma pessoa telefone, emails e endereço."};
+        defs["Cliente"] = {"type":"object","properties":{"id":{"type":"integer","format":"int64","example":66},"pessoa":{"$ref":"#/definitions/Pessoa"},"enderecos":{"type":"array","items":{"$ref":"#/definitions/Enderecos"}},"telefones":{"type":"array","items":{"$ref":"#/definitions/Telefones"}},"emails":{"type":"array","items":{"$ref":"#/definitions/Emails"}},"dataCriacao":{"type":"string","format":"date-time","example":"2000-09-29T16:50:00"},"dataExclusao":{"type":"string","format":"date-time","example":"2000-09-29T16:50:00"}},"description":"Cliente é a nossa base. É necessário ter um cliente para podermos criar os dados de uma pessoa telefone, emails e endereço."};
         defs["ClienteFilter"] = {"type":"object","properties":{"dataCriacao":{"type":"string","format":"date-time"},"dataNascimento":{"type":"string","format":"data-time"},"nome":{"type":"string"},"cpf":{"type":"string"},"cep":{"type":"string"},"uf":{"type":"string"},"enderecosEmails":{"type":"array","items":{"type":"object","properties":{"enderecoEmail":{"type":"string"}}}}}};
         defs["ClienteInsert"] = {"type":"object","properties":{"pessoa":{"$ref":"#/definitions/PessoaInsert"},"enderecos":{"type":"array","items":{"$ref":"#/definitions/EnderecosInsert"}},"telefones":{"type":"array","items":{"$ref":"#/definitions/TelefonesInsert"}},"emails":{"type":"array","items":{"$ref":"#/definitions/EmailsInsert"}},"dataCriacao":{"type":"string","format":"date-time"},"dataExclusao":{"type":"string","format":"date-time"}}};
-        defs["ClienteUpdate"] = {"type":"object","properties":{"id":{"type":"integer","format":"int64"},"pessoa":{"$ref":"#/definitions/Pessoa"},"enderecos":{"type":"array","items":{"$ref":"#/definitions/Enderecos"}},"telefones":{"type":"array","items":{"$ref":"#/definitions/Telefones"}},"emails":{"type":"array","items":{"$ref":"#/definitions/Emails"}},"dataCriacao":{"type":"string","format":"date-time"},"dataExclusao":{"type":"string","format":"date-time"}}};
         defs["Emails"] = {"type":"object","properties":{"id":{"type":"integer","format":"int64"},"enderecoEmail":{"type":"string"}},"description":"O email onde possa contatar um **cliente** por escrito."};
         defs["EmailsInsert"] = {"type":"object","properties":{"enderecoEmail":{"type":"string"}}};
         defs["Enderecos"] = {"type":"object","properties":{"id":{"type":"integer","format":"int64"},"tipoEndereco":{"type":"string"},"logradouro":{"type":"string"},"cidade":{"type":"string"},"cep":{"type":"string"},"uf":{"type":"string"},"bairro":{"type":"string"}},"description":"O local onde um **cliente** se localiza, ou algum endereço onde o mesmo possa ser encontrado."};
         defs["EnderecosInsert"] = {"type":"object","properties":{"tipoEndereco":{"type":"string"},"logradouro":{"type":"string"},"cidade":{"type":"string"},"cep":{"type":"string"},"uf":{"type":"string"},"bairro":{"type":"string"}}};
-        defs["Pessoa"] = {"type":"object","properties":{"id":{"type":"integer","format":"int64"},"nome":{"type":"string"},"dataNascimento":{"type":"string","format":"date-time"},"sexo":{"type":"string","description":"Sexo da pessoa","enum":["MASCULINO","FEMININO","INDEFINIDO"]},"altura":{"type":"number","format":"float"},"peso":{"type":"number","format":"float"},"cpf":{"type":"string"}},"description":"Uma pessoa é os dados especificos de uma pessoa, caracteristias que somente ela tem."};
+        defs["Pessoa"] = {"type":"object","properties":{"id":{"type":"integer","format":"int64","example":34},"nome":{"type":"string","example":"Fulano de tal"},"dataNascimento":{"type":"string","format":"date-time","example":"2000-09-29T16:50:00"},"sexo":{"type":"string","description":"Sexo da pessoa","enum":["MASCULINO","FEMININO","INDEFINIDO"]},"altura":{"type":"number","format":"float","example":170.0},"peso":{"type":"number","format":"float","example":79.8},"cpf":{"type":"string","example":"79217696080"}},"description":"Uma pessoa é os dados especificos de uma pessoa, caracteristias que somente ela tem."};
         defs["PessoaInsert"] = {"type":"object","properties":{"nome":{"type":"string"},"dataNascimento":{"type":"string","format":"date-time"},"sexo":{"type":"string","description":"Sexo da pessoa","enum":["MASCULINO","FEMININO","INDEFINIDO"]},"altura":{"type":"number","format":"float"},"peso":{"type":"number","format":"float"},"cpf":{"type":"string"}}};
         defs["Plano"] = {"type":"object","properties":{"id":{"type":"integer","format":"int64"},"nome":{"type":"string"},"descricao":{"type":"string"}},"description":"Plano representa uma assinatura a qual um **cliente** poderá assinar."};
+        defs["PlanoFilter"] = {"type":"object","properties":{"nome":{"type":"string"},"descricao":{"type":"string"}}};
         defs["PlanoInsert"] = {"type":"object","properties":{"nome":{"type":"string"},"descricao":{"type":"string"}}};
         defs["Produto"] = {"type":"object","properties":{"id":{"type":"integer","format":"int64"},"plano":{"$ref":"#/definitions/Plano"},"cliente":{"$ref":"#/definitions/Cliente"},"dataAquisicao":{"type":"string","format":"date-time"},"dataCancelamento":{"type":"string","format":"date-time"},"situacao":{"type":"string"},"observacao":{"type":"string"}},"description":"Produto é a base para o cliente ter um plano. Quando criamos um produto podemos mostrar a um **cliente** qual foi o plano assinado e cobrar mensalidades."};
+        defs["ProdutoFilter"] = {"type":"object","properties":{"dataCriacao":{"type":"string","format":"date-time"},"dataExlusao":{"type":"string","format":"data-time"},"nomePlano":{"type":"string"},"nomeCliente":{"type":"string"},"idCliente":{"type":"integer"},"idPlano":{"type":"integer"},"ativo":{"type":"boolean"},"enderecosEmails":{"type":"array","items":{"type":"object","properties":{"enderecoEmail":{"type":"string"}}}}}};
         defs["ProdutoInsert"] = {"type":"object","properties":{"plano":{"type":"object","properties":{"id":{"type":"integer","format":"int64"}}},"cliente":{"type":"object","properties":{"id":{"type":"integer","format":"int64"}}},"observacao":{"type":"string"}}};
+        defs["ProdutoUpdate"] = {"type":"object","properties":{"id":{"type":"integer","format":"int64"},"cliente":{"type":"object","properties":{"id":{"type":"integer","format":"int64"}}},"plano":{"type":"object","properties":{"id":{"type":"integer","format":"int64"}}},"dataCriacao":{"type":"string","format":"date-time","example":"2022-04-10T19:07:17.363435"},"dataExclusao":{"type":"string","format":"date-time","example":"2022-04-10T19:07:17.363435"}}};
         defs["Telefones"] = {"type":"object","properties":{"id":{"type":"integer","format":"int64"},"numeroTelefone":{"type":"string"}},"description":"O telefone para que possa contatar o **cliente** ,o mesmo pode ter vários números para mais possibilidades de contato."};
         defs["TelefonesInsert"] = {"type":"object","properties":{"numeroTelefone":{"type":"string"}}};
   </script>
@@ -754,6 +756,9 @@ margin-bottom: 20px;
                     <li data-group="Plano" data-name="adicionaPlano" class="">
                       <a href="#api-Plano-adicionaPlano">adicionaPlano</a>
                     </li>
+                    <li data-group="Plano" data-name="atualizarPlano" class="">
+                      <a href="#api-Plano-atualizarPlano">atualizarPlano</a>
+                    </li>
                     <li data-group="Plano" data-name="deletePlano" class="">
                       <a href="#api-Plano-deletePlano">deletePlano</a>
                     </li>
@@ -763,9 +768,15 @@ margin-bottom: 20px;
                     <li data-group="Plano" data-name="getPlanoById" class="">
                       <a href="#api-Plano-getPlanoById">getPlanoById</a>
                     </li>
+                    <li data-group="Plano" data-name="pesquisaPlano" class="">
+                      <a href="#api-Plano-pesquisaPlano">pesquisaPlano</a>
+                    </li>
                   <li class="nav-header" data-group="Produto"><a href="#api-Produto">API Methods - Produto</a></li>
                     <li data-group="Produto" data-name="adicionaProduto" class="">
                       <a href="#api-Produto-adicionaProduto">adicionaProduto</a>
+                    </li>
+                    <li data-group="Produto" data-name="atualizarProduto" class="">
+                      <a href="#api-Produto-atualizarProduto">atualizarProduto</a>
                     </li>
                     <li data-group="Produto" data-name="deleteProduto" class="">
                       <a href="#api-Produto-deleteProduto">deleteProduto</a>
@@ -775,6 +786,9 @@ margin-bottom: 20px;
                     </li>
                     <li data-group="Produto" data-name="getProdutoById" class="">
                       <a href="#api-Produto-getProdutoById">getProdutoById</a>
+                    </li>
+                    <li data-group="Produto" data-name="pesquisaProduto" class="">
+                      <a href="#api-Produto-pesquisaProduto">pesquisaProduto</a>
                     </li>
           </ul>
         </nav>
@@ -1113,12 +1127,12 @@ $(document).ready(function() {
                       <article id="api-Cliente-atualizarCliente-0" data-group="User" data-name="atualizarCliente" data-version="0">
                         <div class="pull-left">
                           <h1>atualizarCliente</h1>
-                          <p>Atualiza um cliente</p>
+                          <p>Atualizar um cliente</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked"></p>
+                        <p class="marked">Não é necessário alterar todos os dados, mas aqui é a rota para atualizar informações do cliente.</p>
                         <p></p>
                         <br />
                         <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/cliente/update</span></code></pre>
@@ -1194,7 +1208,7 @@ public class ClienteApiExample {
 
 ClienteApi *apiInstance = [[ClienteApi alloc] init];
 
-// Atualiza um cliente
+// Atualizar um cliente
 [apiInstance atualizarClienteWith:body
               completionHandler: ^(NSError* error) {
                             if (error) {
@@ -1245,7 +1259,7 @@ namespace Example
 
             try
             {
-                // Atualiza um cliente
+                // Atualizar um cliente
                 apiInstance.atualizarCliente(body);
             }
             catch (Exception e)
@@ -1301,7 +1315,7 @@ api_instance = swagger_client.ClienteApi()
 body =  # Cliente | Objeto cliente a ser atualizado na base.
 
 try: 
-    # Atualiza um cliente
+    # Atualizar um cliente
     api_instance.atualizar_cliente(body)
 except ApiException as e:
     print("Exception when calling ClienteApi->atualizarCliente: %s\n" % e)</code></pre>
@@ -1381,12 +1395,12 @@ $(document).ready(function() {
                       <article id="api-Cliente-deleteCliente-0" data-group="User" data-name="deleteCliente" data-version="0">
                         <div class="pull-left">
                           <h1>deleteCliente</h1>
-                          <p>Deleta um cliente de acordo com ID.</p>
+                          <p>Deleta um cliente.</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked"></p>
+                        <p class="marked">Rota para deletar um cliente com base no ID que foi dado ao inserir o mesmo.</p>
                         <p></p>
                         <br />
                         <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/cliente/{id}</span></code></pre>
@@ -1462,7 +1476,7 @@ public class ClienteApiExample {
 
 ClienteApi *apiInstance = [[ClienteApi alloc] init];
 
-// Deleta um cliente de acordo com ID.
+// Deleta um cliente.
 [apiInstance deleteClienteWith:id
               completionHandler: ^(NSError* error) {
                             if (error) {
@@ -1513,7 +1527,7 @@ namespace Example
 
             try
             {
-                // Deleta um cliente de acordo com ID.
+                // Deleta um cliente.
                 apiInstance.deleteCliente(id);
             }
             catch (Exception e)
@@ -1569,7 +1583,7 @@ api_instance = swagger_client.ClienteApi()
 id = 789 # Long | Cliente id para deletar.
 
 try: 
-    # Deleta um cliente de acordo com ID.
+    # Deleta um cliente.
     api_instance.delete_cliente(id)
 except ApiException as e:
     print("Exception when calling ClienteApi->deleteCliente: %s\n" % e)</code></pre>
@@ -1625,7 +1639,7 @@ except ApiException as e:
                             <div class="tab-content" style='margin-bottom: 10px;'>
                             </div>
 
-                            <h3> Status: 400 - ID informado é inválido </h3>
+                            <h3> Status: 400 - Cliente já foi excluido/  não encontrado. </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>
@@ -1633,7 +1647,7 @@ except ApiException as e:
                             <div class="tab-content" style='margin-bottom: 10px;'>
                             </div>
 
-                            <h3> Status: 404 - Cliente não encontrado </h3>
+                            <h3> Status: 404 - Rota não encontrada. </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>
@@ -2470,7 +2484,7 @@ except ApiException as e:
                             <div class="tab-content" style='margin-bottom: 10px;'>
                             </div>
 
-                            <h3> Status: 404 - Pet not found </h3>
+                            <h3> Status: 404 - Rota não encontrada </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>
@@ -2531,7 +2545,7 @@ public class ClienteApiExample {
         ClienteApi apiInstance = new ClienteApi();
         ClienteFilter body = ; // ClienteFilter | Cada campo é um filtro diferente mas se você botar vários, então vai ser filtrado com base nesses vários critérios
         try {
-            Plano result = apiInstance.pesquisaCliente(body);
+            array[Cliente] result = apiInstance.pesquisaCliente(body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ClienteApi#pesquisaCliente");
@@ -2550,7 +2564,7 @@ public class ClienteApiExample {
         ClienteApi apiInstance = new ClienteApi();
         ClienteFilter body = ; // ClienteFilter | Cada campo é um filtro diferente mas se você botar vários, então vai ser filtrado com base nesses vários critérios
         try {
-            Plano result = apiInstance.pesquisaCliente(body);
+            array[Cliente] result = apiInstance.pesquisaCliente(body);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling ClienteApi#pesquisaCliente");
@@ -2570,7 +2584,7 @@ ClienteApi *apiInstance = [[ClienteApi alloc] init];
 
 // Pesquisar por cliente
 [apiInstance pesquisaClienteWith:body
-              completionHandler: ^(Plano output, NSError* error) {
+              completionHandler: ^(array[Cliente] output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -2623,7 +2637,7 @@ namespace Example
             try
             {
                 // Pesquisar por cliente
-                Plano result = apiInstance.pesquisaCliente(body);
+                array[Cliente] result = apiInstance.pesquisaCliente(body);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2756,7 +2770,10 @@ $(document).ready(function() {
                                         var schemaWrapper = {
   "description" : "Operação bem sucedida.",
   "schema" : {
-    "$ref" : "#/definitions/Plano"
+    "type" : "array",
+    "items" : {
+      "$ref" : "#/definitions/Cliente"
+    }
   }
 };
                                         var schema = schemaWrapper.schema;
@@ -2782,7 +2799,7 @@ $(document).ready(function() {
                                 </div>
                             </div>
 
-                            <h3> Status: 405 - Invalid input </h3>
+                            <h3> Status: 405 - Invalid  </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>
@@ -3098,6 +3115,274 @@ $(document).ready(function() {
                             </div>
 
                             <h3> Status: 405 - Invalid input </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Plano-atualizarPlano">
+                      <article id="api-Plano-atualizarPlano-0" data-group="User" data-name="atualizarPlano" data-version="0">
+                        <div class="pull-left">
+                          <h1>atualizarPlano</h1>
+                          <p>Atualizar um plano</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Não é necessário alterar todos os dados, mas aqui é a rota para atualizar informações do plano.</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/plano/update</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Plano-atualizarPlano-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Plano-atualizarPlano-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Plano-atualizarPlano-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Plano-atualizarPlano-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Plano-atualizarPlano-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Plano-atualizarPlano-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Plano-atualizarPlano-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Plano-atualizarPlano-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Plano-atualizarPlano-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Plano-atualizarPlano-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Plano-atualizarPlano-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Plano-atualizarPlano-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "https://localhost/clinica/api//plano/update"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Plano-atualizarPlano-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.PlanoApi;
+
+import java.io.File;
+import java.util.*;
+
+public class PlanoApiExample {
+
+    public static void main(String[] args) {
+        
+        PlanoApi apiInstance = new PlanoApi();
+        Plano body = ; // Plano | Objeto Plano a ser atualizado na base.
+        try {
+            apiInstance.atualizarPlano(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PlanoApi#atualizarPlano");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Plano-atualizarPlano-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.PlanoApi;
+
+public class PlanoApiExample {
+
+    public static void main(String[] args) {
+        PlanoApi apiInstance = new PlanoApi();
+        Plano body = ; // Plano | Objeto Plano a ser atualizado na base.
+        try {
+            apiInstance.atualizarPlano(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PlanoApi#atualizarPlano");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Plano-atualizarPlano-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Plano-atualizarPlano-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Plano *body = ; // Objeto Plano a ser atualizado na base.
+
+PlanoApi *apiInstance = [[PlanoApi alloc] init];
+
+// Atualizar um plano
+[apiInstance atualizarPlanoWith:body
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Plano-atualizarPlano-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SwaggerClinica = require('swagger_clinica');
+
+var api = new SwaggerClinica.PlanoApi()
+
+var body = ; // {Plano} Objeto Plano a ser atualizado na base.
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.atualizarPlano(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Plano-atualizarPlano-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Plano-atualizarPlano-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class atualizarPlanoExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new PlanoApi();
+            var body = new Plano(); // Plano | Objeto Plano a ser atualizado na base.
+
+            try
+            {
+                // Atualizar um plano
+                apiInstance.atualizarPlano(body);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling PlanoApi.atualizarPlano: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Plano-atualizarPlano-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\PlanoApi();
+$body = ; // Plano | Objeto Plano a ser atualizado na base.
+
+try {
+    $api_instance->atualizarPlano($body);
+} catch (Exception $e) {
+    echo 'Exception when calling PlanoApi->atualizarPlano: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Plano-atualizarPlano-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::PlanoApi;
+
+my $api_instance = WWW::SwaggerClient::PlanoApi->new();
+my $body = WWW::SwaggerClient::Object::Plano->new(); # Plano | Objeto Plano a ser atualizado na base.
+
+eval { 
+    $api_instance->atualizarPlano(body => $body);
+};
+if ($@) {
+    warn "Exception when calling PlanoApi->atualizarPlano: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Plano-atualizarPlano-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.PlanoApi()
+body =  # Plano | Objeto Plano a ser atualizado na base.
+
+try: 
+    # Atualizar um plano
+    api_instance.atualizar_plano(body)
+except ApiException as e:
+    print("Exception when calling PlanoApi->atualizarPlano: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+
+
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "in" : "body",
+  "name" : "body",
+  "description" : "Objeto Plano a ser atualizado na base.",
+  "required" : true,
+  "schema" : {
+    "$ref" : "#/definitions/Plano"
+  }
+};
+  var schema = schemaWrapper.schema;
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_atualizarPlano_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_atualizarPlano_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 400 - Id fornecido inválido. </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - Plano não encontrado. </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>
@@ -3949,6 +4234,321 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
+                    <div id="api-Plano-pesquisaPlano">
+                      <article id="api-Plano-pesquisaPlano-0" data-group="User" data-name="pesquisaPlano" data-version="0">
+                        <div class="pull-left">
+                          <h1>pesquisaPlano</h1>
+                          <p>Pesquisar por plano</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Rota de pesquisa por algum plano em especifico ou vários baseado nos criterios dos parametros abaixo, basta informar os dados correspondentes e terá uma resposta de acordo.</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/plano/search</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Plano-pesquisaPlano-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Plano-pesquisaPlano-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Plano-pesquisaPlano-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Plano-pesquisaPlano-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Plano-pesquisaPlano-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Plano-pesquisaPlano-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Plano-pesquisaPlano-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Plano-pesquisaPlano-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Plano-pesquisaPlano-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Plano-pesquisaPlano-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Plano-pesquisaPlano-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Plano-pesquisaPlano-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://localhost/clinica/api//plano/search"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Plano-pesquisaPlano-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.PlanoApi;
+
+import java.io.File;
+import java.util.*;
+
+public class PlanoApiExample {
+
+    public static void main(String[] args) {
+        
+        PlanoApi apiInstance = new PlanoApi();
+        PlanoFilter body = ; // PlanoFilter | Objeto plano a ser pesquisado na base.
+        try {
+            array[Plano] result = apiInstance.pesquisaPlano(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PlanoApi#pesquisaPlano");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Plano-pesquisaPlano-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.PlanoApi;
+
+public class PlanoApiExample {
+
+    public static void main(String[] args) {
+        PlanoApi apiInstance = new PlanoApi();
+        PlanoFilter body = ; // PlanoFilter | Objeto plano a ser pesquisado na base.
+        try {
+            array[Plano] result = apiInstance.pesquisaPlano(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling PlanoApi#pesquisaPlano");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Plano-pesquisaPlano-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Plano-pesquisaPlano-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">PlanoFilter *body = ; // Objeto plano a ser pesquisado na base.
+
+PlanoApi *apiInstance = [[PlanoApi alloc] init];
+
+// Pesquisar por plano
+[apiInstance pesquisaPlanoWith:body
+              completionHandler: ^(array[Plano] output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Plano-pesquisaPlano-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SwaggerClinica = require('swagger_clinica');
+
+var api = new SwaggerClinica.PlanoApi()
+
+var body = ; // {PlanoFilter} Objeto plano a ser pesquisado na base.
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.pesquisaPlano(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Plano-pesquisaPlano-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Plano-pesquisaPlano-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class pesquisaPlanoExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new PlanoApi();
+            var body = new PlanoFilter(); // PlanoFilter | Objeto plano a ser pesquisado na base.
+
+            try
+            {
+                // Pesquisar por plano
+                array[Plano] result = apiInstance.pesquisaPlano(body);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling PlanoApi.pesquisaPlano: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Plano-pesquisaPlano-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\PlanoApi();
+$body = ; // PlanoFilter | Objeto plano a ser pesquisado na base.
+
+try {
+    $result = $api_instance->pesquisaPlano($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling PlanoApi->pesquisaPlano: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Plano-pesquisaPlano-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::PlanoApi;
+
+my $api_instance = WWW::SwaggerClient::PlanoApi->new();
+my $body = WWW::SwaggerClient::Object::PlanoFilter->new(); # PlanoFilter | Objeto plano a ser pesquisado na base.
+
+eval { 
+    my $result = $api_instance->pesquisaPlano(body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling PlanoApi->pesquisaPlano: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Plano-pesquisaPlano-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.PlanoApi()
+body =  # PlanoFilter | Objeto plano a ser pesquisado na base.
+
+try: 
+    # Pesquisar por plano
+    api_response = api_instance.pesquisa_plano(body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling PlanoApi->pesquisaPlano: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+
+
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "in" : "body",
+  "name" : "body",
+  "description" : "Objeto plano a ser pesquisado na base.",
+  "required" : true,
+  "schema" : {
+    "$ref" : "#/definitions/PlanoFilter"
+  }
+};
+  var schema = schemaWrapper.schema;
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_pesquisaPlano_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_pesquisaPlano_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Operação bem sucedida. </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-pesquisaPlano-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-pesquisaPlano-200-schema">
+                                  <div id='responses-pesquisaPlano-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Operação bem sucedida.",
+  "schema" : {
+    "type" : "array",
+    "items" : {
+      "$ref" : "#/definitions/Plano"
+    }
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = defs;
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-pesquisaPlano-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-pesquisaPlano-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-pesquisaPlano-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 405 - Invalid input </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                   </section>
                 <section id="api-Produto">
                   <h1>Produto</h1>
@@ -4264,6 +4864,274 @@ $(document).ready(function() {
                         </article>
                       </div>
                       <hr>
+                    <div id="api-Produto-atualizarProduto">
+                      <article id="api-Produto-atualizarProduto-0" data-group="User" data-name="atualizarProduto" data-version="0">
+                        <div class="pull-left">
+                          <h1>atualizarProduto</h1>
+                          <p>Atualizar um produto</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Não é necessário alterar todos os dados, mas aqui é a rota para atualizar informações do produto.</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/produto/update</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Produto-atualizarProduto-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Produto-atualizarProduto-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Produto-atualizarProduto-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Produto-atualizarProduto-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Produto-atualizarProduto-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Produto-atualizarProduto-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Produto-atualizarProduto-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Produto-atualizarProduto-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Produto-atualizarProduto-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Produto-atualizarProduto-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Produto-atualizarProduto-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Produto-atualizarProduto-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "https://localhost/clinica/api//produto/update"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Produto-atualizarProduto-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ProdutoApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ProdutoApiExample {
+
+    public static void main(String[] args) {
+        
+        ProdutoApi apiInstance = new ProdutoApi();
+        ProdutoUpdate body = ; // ProdutoUpdate | Objeto cliente a ser atualizado na base.
+        try {
+            apiInstance.atualizarProduto(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ProdutoApi#atualizarProduto");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Produto-atualizarProduto-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ProdutoApi;
+
+public class ProdutoApiExample {
+
+    public static void main(String[] args) {
+        ProdutoApi apiInstance = new ProdutoApi();
+        ProdutoUpdate body = ; // ProdutoUpdate | Objeto cliente a ser atualizado na base.
+        try {
+            apiInstance.atualizarProduto(body);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ProdutoApi#atualizarProduto");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Produto-atualizarProduto-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Produto-atualizarProduto-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">ProdutoUpdate *body = ; // Objeto cliente a ser atualizado na base.
+
+ProdutoApi *apiInstance = [[ProdutoApi alloc] init];
+
+// Atualizar um produto
+[apiInstance atualizarProdutoWith:body
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Produto-atualizarProduto-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SwaggerClinica = require('swagger_clinica');
+
+var api = new SwaggerClinica.ProdutoApi()
+
+var body = ; // {ProdutoUpdate} Objeto cliente a ser atualizado na base.
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.atualizarProduto(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Produto-atualizarProduto-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Produto-atualizarProduto-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class atualizarProdutoExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new ProdutoApi();
+            var body = new ProdutoUpdate(); // ProdutoUpdate | Objeto cliente a ser atualizado na base.
+
+            try
+            {
+                // Atualizar um produto
+                apiInstance.atualizarProduto(body);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ProdutoApi.atualizarProduto: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Produto-atualizarProduto-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\ProdutoApi();
+$body = ; // ProdutoUpdate | Objeto cliente a ser atualizado na base.
+
+try {
+    $api_instance->atualizarProduto($body);
+} catch (Exception $e) {
+    echo 'Exception when calling ProdutoApi->atualizarProduto: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Produto-atualizarProduto-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ProdutoApi;
+
+my $api_instance = WWW::SwaggerClient::ProdutoApi->new();
+my $body = WWW::SwaggerClient::Object::ProdutoUpdate->new(); # ProdutoUpdate | Objeto cliente a ser atualizado na base.
+
+eval { 
+    $api_instance->atualizarProduto(body => $body);
+};
+if ($@) {
+    warn "Exception when calling ProdutoApi->atualizarProduto: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Produto-atualizarProduto-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.ProdutoApi()
+body =  # ProdutoUpdate | Objeto cliente a ser atualizado na base.
+
+try: 
+    # Atualizar um produto
+    api_instance.atualizar_produto(body)
+except ApiException as e:
+    print("Exception when calling ProdutoApi->atualizarProduto: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+<td>
+
+
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "in" : "body",
+  "name" : "body",
+  "description" : "Objeto cliente a ser atualizado na base.",
+  "required" : true,
+  "schema" : {
+    "$ref" : "#/definitions/ProdutoUpdate"
+  }
+};
+  var schema = schemaWrapper.schema;
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_atualizarProduto_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_atualizarProduto_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 400 - Id fornecido inválido. </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - Cliente não encontrado. </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Produto-deleteProduto">
                       <article id="api-Produto-deleteProduto-0" data-group="User" data-name="deleteProduto" data-version="0">
                         <div class="pull-left">
@@ -4273,7 +5141,7 @@ $(document).ready(function() {
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked"></p>
+                        <p class="marked">Rota para deletar um produto utilizando ID do produto.</p>
                         <p></p>
                         <br />
                         <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/produto/{id}</span></code></pre>
@@ -5095,6 +5963,322 @@ except ApiException as e:
                             </div>
 
                             <h3> Status: 404 - Produto não encontrado </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Produto-pesquisaProduto">
+                      <article id="api-Produto-pesquisaProduto-0" data-group="User" data-name="pesquisaProduto" data-version="0">
+                        <div class="pull-left">
+                          <h1>pesquisaProduto</h1>
+                          <p>Pesquisar por produto</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Rota de pesquisa por algum produto em especifico ou vários baseado nos criterios dos parametros abaixo, basta informar os dados correspondentes e terá uma resposta de acordo.</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/produto/search</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Produto-pesquisaProduto-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Produto-pesquisaProduto-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Produto-pesquisaProduto-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Produto-pesquisaProduto-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Produto-pesquisaProduto-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Produto-pesquisaProduto-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Produto-pesquisaProduto-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Produto-pesquisaProduto-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Produto-pesquisaProduto-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Produto-pesquisaProduto-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Produto-pesquisaProduto-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Produto-pesquisaProduto-0-curl">
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://localhost/clinica/api//produto/search"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Produto-pesquisaProduto-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.ProdutoApi;
+
+import java.io.File;
+import java.util.*;
+
+public class ProdutoApiExample {
+
+    public static void main(String[] args) {
+        
+        ProdutoApi apiInstance = new ProdutoApi();
+        ProdutoFilter body = ; // ProdutoFilter | Objeto cliente a ser atualizado na base.
+        try {
+            array[Produto] result = apiInstance.pesquisaProduto(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ProdutoApi#pesquisaProduto");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Produto-pesquisaProduto-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.ProdutoApi;
+
+public class ProdutoApiExample {
+
+    public static void main(String[] args) {
+        ProdutoApi apiInstance = new ProdutoApi();
+        ProdutoFilter body = ; // ProdutoFilter | Objeto cliente a ser atualizado na base.
+        try {
+            array[Produto] result = apiInstance.pesquisaProduto(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling ProdutoApi#pesquisaProduto");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Produto-pesquisaProduto-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Produto-pesquisaProduto-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">ProdutoFilter *body = ; // Objeto cliente a ser atualizado na base. (optional)
+
+ProdutoApi *apiInstance = [[ProdutoApi alloc] init];
+
+// Pesquisar por produto
+[apiInstance pesquisaProdutoWith:body
+              completionHandler: ^(array[Produto] output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Produto-pesquisaProduto-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var SwaggerClinica = require('swagger_clinica');
+
+var api = new SwaggerClinica.ProdutoApi()
+
+var opts = { 
+  'body':  // {ProdutoFilter} Objeto cliente a ser atualizado na base.
+};
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.pesquisaProduto(opts, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Produto-pesquisaProduto-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Produto-pesquisaProduto-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class pesquisaProdutoExample
+    {
+        public void main()
+        {
+            
+            var apiInstance = new ProdutoApi();
+            var body = new ProdutoFilter(); // ProdutoFilter | Objeto cliente a ser atualizado na base. (optional) 
+
+            try
+            {
+                // Pesquisar por produto
+                array[Produto] result = apiInstance.pesquisaProduto(body);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling ProdutoApi.pesquisaProduto: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Produto-pesquisaProduto-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\Api\ProdutoApi();
+$body = ; // ProdutoFilter | Objeto cliente a ser atualizado na base.
+
+try {
+    $result = $api_instance->pesquisaProduto($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ProdutoApi->pesquisaProduto: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Produto-pesquisaProduto-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::ProdutoApi;
+
+my $api_instance = WWW::SwaggerClient::ProdutoApi->new();
+my $body = WWW::SwaggerClient::Object::ProdutoFilter->new(); # ProdutoFilter | Objeto cliente a ser atualizado na base.
+
+eval { 
+    my $result = $api_instance->pesquisaProduto(body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling ProdutoApi->pesquisaProduto: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Produto-pesquisaProduto-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.ProdutoApi()
+body =  # ProdutoFilter | Objeto cliente a ser atualizado na base. (optional)
+
+try: 
+    # Pesquisar por produto
+    api_response = api_instance.pesquisa_produto(body=body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling ProdutoApi->pesquisaProduto: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body </td>
+<td>
+
+
+<script>
+$(document).ready(function() {
+  var schemaWrapper = {
+  "in" : "body",
+  "name" : "body",
+  "description" : "Objeto cliente a ser atualizado na base.",
+  "required" : false,
+  "schema" : {
+    "$ref" : "#/definitions/ProdutoFilter"
+  }
+};
+  var schema = schemaWrapper.schema;
+  if (schema.$ref != null) {
+    schema = defsParser.$refs.get(schema.$ref);
+  } else {
+    schemaWrapper.definitions = Object.assign({}, defs);
+    $RefParser.dereference(schemaWrapper).catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+  var result = $('#d2e199_pesquisaProduto_body');
+  result.empty();
+  result.append(view.render());
+});
+</script>
+<div id="d2e199_pesquisaProduto_body"></div>
+</td>
+</tr>
+
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Operação bem sucedida. </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-pesquisaProduto-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-pesquisaProduto-200-schema">
+                                  <div id='responses-pesquisaProduto-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Operação bem sucedida.",
+  "schema" : {
+    "type" : "array",
+    "items" : {
+      "$ref" : "#/definitions/Produto"
+    }
+  }
+};
+                                        var schema = schemaWrapper.schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.definitions = defs;
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-pesquisaProduto-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-pesquisaProduto-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-pesquisaProduto-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 405 - Invalid input </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                             </ul>
